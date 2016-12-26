@@ -1,6 +1,6 @@
 ## leitura dos arquivos
-from objetos import Objeto, Luz, ObjectQuadric
-from pygame.math import Vector3
+from objetos import Objeto, Light, ObjectQuadric
+from Algebra import *
 
 # Cada função trata um tipo diferente do arquivo de configuração
 class Read():
@@ -32,11 +32,15 @@ class Read():
         return self.__get_float(values)
 
     def object(self, values):
+        """
+        :param values:
+        :return: Lista de objetos de tipo triangulo
+        """
         # Obtendo os vertices e faces que se encontram em arquivos separdos
         vertices = self.__get_vertices(values[0])
         faces = self.__get_faces(values[0])
 
-        cor = (float(values[1]),
+        cor = Vector3D(float(values[1]),
                float(values[2]),
                float(values[3]))
 
@@ -47,9 +51,18 @@ class Read():
         kt = values[7]
         n = values[8]
 
-        obj = Objeto(vertices, faces, cor, ka, kd, ks, kt, n)
+        obj_list = []
 
-        return obj
+        for f in faces:
+            A = vertices[f[0] - 1]
+            B = vertices[f[1] - 1]
+            C = vertices[f[2] - 1]
+
+            obj = Objeto(A,B,C, cor, ka, kd, ks, kt, n)
+            obj_list.append(obj)
+
+
+        return obj_list
 
     def light(self, values):
         # Obtendo os vertices e faces que se encontram em arquivos separdos
@@ -57,12 +70,20 @@ class Read():
         faces = self.__get_faces(values[0])
 
         # Cor e intensidade da luz
-        cor = (values[1], values[2], values[3])
+        color = RGBColour(values[1], values[2], values[3])
         lp = float(values[4])
 
-        luz = Luz(vertices, faces, cor, lp)
+        light_list = []
 
-        return luz
+        for f in faces:
+            A = vertices[f[0] - 1]
+            B = vertices[f[1] - 1]
+            C = vertices[f[2] - 1]
+
+            li = Light(A,B,C, color, lp)
+            light_list.append(li)
+
+        return light_list
 
     def objectquadric(self, values):
         print(values)
@@ -112,7 +133,7 @@ class Read():
             values = words[1:]  ## Valores do objeto ou propriedade
 
             if line_type == 'v':
-                vect3 = Vector3(float(values[0]),
+                vect3 = Vector3D(float(values[0]),
                                 float(values[1]),
                                 float(values[2]))
 
