@@ -2,7 +2,7 @@
 Responsavel por controlar o aplicativo
 """
 from helper import read
-import Tkinter
+#import Tkinter
 
 print("Lendo Arquivos de configuração e Objetos")
 
