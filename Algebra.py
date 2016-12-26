@@ -32,6 +32,7 @@ class Vector3D:
     def __repr__(self):
         return "Algebra.Vector3D ({}, {}, {})".format(self.x, self.y, self.z)
 
+
 # Return dot product between two vectors
 def Dot(a, b):
     return a.x * b.x + a.y * b.y + a.z * b.z

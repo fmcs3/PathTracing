@@ -2,6 +2,7 @@
 Responsavel por controlar o aplicativo
 """
 from helper import read
+import Tkinter
 
 print("Lendo Arquivos de configuração e Objetos")
 
@@ -39,4 +40,3 @@ for line in f:
 
 #print("Lista de objetos: ", obj_list)
 #print("Lista de propriedades: ", prop_dict)
-# Inicializando objetos da cena
