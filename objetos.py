@@ -19,7 +19,7 @@ class Objeto:
         self.A = A # Vertice A
         self.B = B # Vertice B
         self.C = C # Vertice C
-        self.plane_constant = Vector3D(0,0,0,0)
+        self.plane_constant = Vector3D(0,0,0)
         self.normal = Normal(A, B, C)
         self.cor = cor
         self.ka = ka
