@@ -28,13 +28,15 @@ for line in f:
     if line_type == '#':
         pass
     elif line_type in obj_types_list:
-        obj_list.append(read(line_type, values))
+        new_objs_list = (read(line_type, values))
+        obj_list = (obj_list,  new_objs_list)
     elif line_type in prop_types_list:
         prop_dict[line_type] = (read(line_type, values))
     else:
         print ("Tipo não encontrado")
         print(line_type)
 
-print("Lista de objetos: ", obj_list)
-print("Lista de propriedades: ", prop_dict)
+
+#print("Lista de objetos: ", obj_list)
+#print("Lista de propriedades: ", prop_dict)
 # Inicializando objetos da cena
