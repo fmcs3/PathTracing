@@ -54,13 +54,15 @@ class Read():
         obj_list = []
 
         for f in faces:
+            print(values[0])
+            print(f)
+            print(cor)
             A = vertices[f[0] - 1]
             B = vertices[f[1] - 1]
             C = vertices[f[2] - 1]
 
             obj = Objeto(A,B,C, cor, ka, kd, ks, kt, n)
             obj_list.append(obj)
-
 
         return obj_list
 

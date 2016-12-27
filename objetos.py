@@ -35,19 +35,6 @@ class Objeto:
         # Checando se o triangulo e o raio são paralelos
         if Dot(r, self.normal) == 0.0:
 
-             # Raio nao intersecta o triangulo
-            hit = False
-            distance = 0.0
-            hit_point = Vector3D(0.0, 0.0, 0.0)
-
-            return (hit, distance, hit_point, self.normal)
-
-           # Calculando o ponto que pode está no plano do triangulo
-        t = - (Dot(self.normal, ray.o) + self.plane_constant) / Dot(self.normal, ray.d)
-        hit_point = ray.get_hitpoint(t)
-
-        # Se t for negativo o objeto está atras da camera
-        if t < 0:
             # Raio nao intersecta o triangulo
             hit = False
             distance = 0.0
@@ -55,6 +42,9 @@ class Objeto:
 
             return (hit, distance, hit_point, self.normal)
 
+        # Calculando o ponto que pode está no plano do triangulo
+        t = - (Dot(self.normal, ray.o) + self.plane_constant) / Dot(self.normal, ray.d)
+        hit_point = ray.get_hitpoint(t)
 
         # Checando se o Ponto está dentro do triangulo
         # Inside-OutSide Test
@@ -107,16 +97,6 @@ class Light():
         # Calculando o ponto que pode está no plano do triangulo
         t = - (Dot(self.normal, ray.o) + self.plane_constant) / Dot(self.normal, ray.d)
         hit_point = ray.get_hitpoint(t)
-
-        # Se t for negativo o objeto está atras da camera
-        if t < 0:
-            # Raio nao intersecta o triangulo
-            hit = False
-            distance = 0.0
-            hit_point = Vector3D(0.0, 0.0, 0.0)
-
-            return (hit, distance, hit_point, self.normal)
-
 
         # Checando se o Ponto está dentro do triangulo
         # Inside-OutSide Test

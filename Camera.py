@@ -78,7 +78,7 @@ class Camera:
 
     def get_direction(self, x, y):
         direction = (self.u * x) + (self.v * y) - (self.w * self.view_dist)
-        return (Normalize(direction))
+        return Normalize(direction)
 
     # spawns spp number of rays for each pixel
     def render(self, integrator, file_name):

@@ -2,6 +2,7 @@ from Algebra import RGBColour
 from Algebra import BLACK
 from objetos import Objeto, Light, ObjectQuadric
 
+
 class PathTraceIntegrator:
     background = BLACK # Cor do Background
 
@@ -14,9 +15,12 @@ class PathTraceIntegrator:
         result = self.background
 
         # Checando interseções com cada objeto
+        dist = 50
         for obj in self.obj_list:
-            oh_my = obj.intersect(ray)
-            if oh_my[0]:
+            inter = obj.intersect(ray)
+            hit = inter[0]
+            distance = inter[1]
+            if hit and distance < dist:
                 result = obj.color
 
         return result

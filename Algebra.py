@@ -54,8 +54,8 @@ def Normalize(v):
 
 # Return the normal vector from a triangule
 def Normal(a, b, c):
-    v = a - b
-    s = a - c
+    v = b - a
+    s = c - a
 
     # Cross Product - Normal vector
     normal = Cross(v, s)
@@ -121,6 +121,8 @@ class RGBColour:
         if (self.b > maximum): self.b = maximum
         if (self.b < minimum): self.b = minimum
 
+    def repr(self):
+        return "RGBColour ({},{},{})".format(self.r, self.g, self.b)
 
 # Constants
 BLACK = RGBColour(0.0, 0.0, 0.0)
