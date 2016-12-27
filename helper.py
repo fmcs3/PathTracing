@@ -40,7 +40,7 @@ class Read():
         vertices = self.__get_vertices(values[0])
         faces = self.__get_faces(values[0])
 
-        cor = Vector3D(float(values[1]),
+        cor = RGBColour(float(values[1]),
                float(values[2]),
                float(values[3]))
 

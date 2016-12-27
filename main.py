@@ -5,7 +5,7 @@ from helper import read
 from tkinter import * #for GUI
 from Algebra import Vector3D
 from Camera import *
-from PathTraceIntegrator import *
+from PathTraceIntegrator import PathTraceIntegrator, RGBColour
 
 print("Lendo Arquivos de configuração e Objetos")
 
@@ -36,7 +36,7 @@ for line in f:
         pass
     elif line_type in obj_types_list:
         new_objs_list = (read(line_type, values))
-        obj_list = (obj_list,  new_objs_list)
+        obj_list = obj_list + new_objs_list
     elif line_type in prop_types_list:
         prop_dict[line_type] = (read(line_type, values))
     else:
@@ -57,18 +57,21 @@ height = int (prop_dict['size'][0])
 width = int (prop_dict['size'][1])
 spp = int (prop_dict['npaths'])
 cam = Camera(eye, focal, view_distance, up, height, width, spp)
+
+# Realiza o path tracing
 pathTracer = PathTraceIntegrator()
-cam.render(pathTracer) #trace scene and save image
+pathTracer.obj_list = obj_list
+cam.render(pathTracer, FILENAME)
 
 #-------------------------------------------------Temporary GUI
 #GUI using tkinter
 root = Tk()
-root.title("PyPath")
+root.title("PathTracing")
 
 #open saved image image
 #use camera variables set above
 viewer = Canvas(root, width=width, height=height)
-image_name = PhotoImage(file = DIRECTORY + FILENAME)
+image_name = PhotoImage(file=FILENAME)
 viewer.create_image(width/2.0, height/2.0, image = image_name)
 viewer.grid(row=0, column=0)
 

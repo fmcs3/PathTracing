@@ -1,8 +1,6 @@
 from Algebra import BLACK, Ray, Vector3D, Cross, Normalize
 from random import random
-from winsound import Beep #for beep sound when complete
-import array #for writing .ppm image file
-
+import array # para a imagem
 
 class Camera:
     # Initializer
@@ -67,7 +65,7 @@ class Camera:
     # save pixel array to file
     def save_image(self, filename):
         # create image file
-        image = open(main.DIRECTORY + filename, 'wb')
+        image = open(filename, 'wb')
         # write magic number, and filename
         image.write(("P6\n#" + filename).encode())
         # write image width, height and max colour-component value
@@ -83,7 +81,7 @@ class Camera:
         return (Normalize(direction))
 
     # spawns spp number of rays for each pixel
-    def render(self, integrator):
+    def render(self, integrator, file_name):
         ray = Ray()
         ray.o = self.eye
         pixel = BLACK  # create black pixel
@@ -91,6 +89,7 @@ class Camera:
             for y in range(0, self.height):
                 pixel = BLACK  # start at black
                 for s in range(0, self.spp):
+                    # Obtendo a direção dos raios
                     sp_x = (x + random()) - (self.width / 2.0)
                     sp_y = (y + random()) - (self.height / 2.0)
                     ray.d = self.get_direction(sp_x, sp_y)
@@ -99,7 +98,5 @@ class Camera:
                 self.save_pixel(pixel, x, y)  # save pixel to pixel array
             print((x / self.width) * 100, "%")
         # save image to file
-        self.save_image(main.FILENAME)  # FILENAME is define at top of source file
-        # Play sound to signal a beep (For Windows)
-        for i in range(1, 4):
-            Beep(i * 500, 250)
+        self.save_image(file_name)  # FILENAME is define at top of source file
+
