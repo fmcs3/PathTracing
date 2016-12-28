@@ -15,10 +15,10 @@ class Camera:
         self.spp = samples_per_pixel
         # setup orthonormal basis
         #####default values
-        #####self.u = Vector3D(1.0, 0.0, 0.0)
-        #####self.v = Vector3D(0.0, 1.0, 0.0)
-        #####self.w = Vector3D(0.0, 0.0, 1.0)
-        self.compute_uvw()
+        self.u = Vector3D(-1.0, 0.0, 0.0)
+        self.v = Vector3D(0.0, 1.0, 0.0)
+        self.w = Vector3D(0.0, 0.0, -1.0)
+        #####self.compute_uvw()
         # create empty image array
         self.image_array = array.array('B', [0] * (image_width * image_height * 3))
 
@@ -95,8 +95,8 @@ class Camera:
                     ray.d = self.get_direction(sp_x, sp_y)
                     pixel = pixel + integrator.trace_ray(ray, 1)
                 pixel = pixel / self.spp
-                self.save_pixel(pixel, x, y)  # save pixel to pixel array
+                self.save_pixel(pixel, x, y)
             print((x / self.width) * 100, "%")
         # save image to file
-        self.save_image(file_name)  # FILENAME is define at top of source file
+        self.save_image(file_name)
 

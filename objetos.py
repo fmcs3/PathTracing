@@ -1,9 +1,10 @@
 """
 Classe que presenta cada objeto a ser mostrado na cena
 """
-from Algebra import Dot, Vector3D, Normal, Normalize, Cross
+from Algebra import Dot, Vector3D, Normal, Normalize, Cross, Parallelogram_Area
 
 class Objeto:
+    area = 0.0
 
     def __init__(self, A, B, C, color, ka, kd,ks, kt, n):
         """
@@ -28,13 +29,11 @@ class Objeto:
         self.kt = kt
         self.n = n
 
-
     def intersect(self, ray):
 
         r = Normalize(ray.d)
         # Checando se o triangulo e o raio são paralelos
         if Dot(r, self.normal) == 0.0:
-
             # Raio nao intersecta o triangulo
             hit = False
             distance = 0.0
@@ -57,8 +56,16 @@ class Objeto:
         C2 = hit_point - self.C
 
         if (Dot(self.normal, Cross(vectorAB, C0)) > 0
-             and Dot(self.normal, Cross(vectorBC, C1)) > 0
-             and Dot(self.normal, Cross(vectorCA, C2))) > 0:
+                and Dot(self.normal, Cross(vectorBC, C1)) > 0
+                and Dot(self.normal, Cross(vectorCA, C2))) > 0:
+            hit = True
+            distance = t
+            hit_point = ray.get_hitpoint(t)
+            return (hit, distance, hit_point, self.normal)  # tuple
+
+        if (Dot(self.normal, Cross(vectorAB, C0)) < 0
+                and Dot(self.normal, Cross(vectorBC, C1)) < 0
+                and Dot(self.normal, Cross(vectorCA, C2))) < 0:
             hit = True
             distance = t
             hit_point = ray.get_hitpoint(t)
@@ -70,6 +77,7 @@ class Objeto:
         hit_point = Vector3D(0.0, 0.0, 0.0)
 
         return (hit, distance, hit_point, self.normal)
+
 
 class Light():
     def __init__(self, A, B, C, color, lp):
@@ -86,8 +94,7 @@ class Light():
         r = Normalize(ray.d)
         # Checando se o triangulo e o raio são paralelos
         if Dot(r, self.normal) == 0.0:
-
-             # Raio nao intersecta o triangulo
+            # Raio nao intersecta o triangulo
             hit = False
             distance = 0.0
             hit_point = Vector3D(0.0, 0.0, 0.0)
@@ -108,9 +115,9 @@ class Light():
         C1 = hit_point - self.B
         C2 = hit_point - self.C
 
-        if (Dot(self.normal, Cross(vectorAB, C0)) > 0
-             and Dot(self.normal, Cross(vectorBC, C1)) > 0
-             and Dot(self.normal, Cross(vectorCA, C2))) > 0:
+        if (Dot(self.normal, Cross(vectorAB, C0)) < 0
+            and Dot(self.normal, Cross(vectorBC, C1)) < 0
+            and Dot(self.normal, Cross(vectorCA, C2))) < 0:
             hit = True
             distance = t
             hit_point = ray.get_hitpoint(t)

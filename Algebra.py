@@ -71,6 +71,13 @@ def orient_normal(normal, direction):
     else:
         return normal
 
+def Parallelogram_Area(A, B, P):
+    v = B - A
+    s = P - A
+
+    cross = Cross(v, s)
+
+    return Dot(v, s)
 
 # -------------------------------------------------Ray class
 class Ray:

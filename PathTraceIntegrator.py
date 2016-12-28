@@ -20,7 +20,9 @@ class PathTraceIntegrator:
             inter = obj.intersect(ray)
             hit = inter[0]
             distance = inter[1]
+
             if hit and distance < dist:
                 result = obj.color
+                dist = distance
 
         return result
