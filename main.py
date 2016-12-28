@@ -49,13 +49,12 @@ for line in f:
 
 #Create Camera
 eye = Vector3D(prop_dict['eye'][0], prop_dict['eye'][1], prop_dict['eye'][2]) #higher z = more narrow view
-#eye = Vector3D(-3.0, 0.0, 190.0) # para testar
 focal = Vector3D(0.0, 0.0, 0.0)
-view_distance = 1000 #larger = more orthographic like
-up = Vector3D(0.0, 1.0, 0.0)
-height = int (prop_dict['size'][0])
-width = int (prop_dict['size'][1])
-spp = int (prop_dict['npaths'])
+view_distance = 1000
+up = Vector3D(0.0, -1.0, 0.0)
+height = int(prop_dict['size'][0])
+width = int(prop_dict['size'][1])
+spp = int(prop_dict['npaths'])
 cam = Camera(eye, focal, view_distance, up, height, width, spp)
 
 # Realiza o path tracing
@@ -72,7 +71,7 @@ root.title("PathTracing")
 #use camera variables set above
 viewer = Canvas(root, width=width, height=height)
 image_name = PhotoImage(file=FILENAME)
-viewer.create_image(width/2.0, height/2.0, image = image_name)
+viewer.create_image(width/2.0, height/2.0, image=image_name)
 viewer.grid(row=0, column=0)
 
 root.mainloop()
