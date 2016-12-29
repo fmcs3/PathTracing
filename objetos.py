@@ -41,8 +41,9 @@ class Objeto:
 
             return (hit, distance, hit_point, self.normal)
 
+        ray_dir = Normalize(ray.d)
         # Calculando o ponto que pode está no plano do triangulo
-        t = - (Dot(self.normal, ray.o) + self.plane_constant) / Dot(self.normal, ray.d)
+        t = Dot(self.normal, (self.A - ray.o)) / Dot(ray_dir, self.normal)
         hit_point = ray.get_hitpoint(t)
 
         # Checando se o Ponto está dentro do triangulo
@@ -58,6 +59,7 @@ class Objeto:
         if (Dot(self.normal, Cross(vectorAB, C0)) > 0
                 and Dot(self.normal, Cross(vectorBC, C1)) > 0
                 and Dot(self.normal, Cross(vectorCA, C2))) > 0:
+            #print("Acertou: " + str (vectorAB))
             hit = True
             distance = t
             hit_point = ray.get_hitpoint(t)
@@ -66,6 +68,7 @@ class Objeto:
         if (Dot(self.normal, Cross(vectorAB, C0)) < 0
                 and Dot(self.normal, Cross(vectorBC, C1)) < 0
                 and Dot(self.normal, Cross(vectorCA, C2))) < 0:
+            #print("Acertou")
             hit = True
             distance = t
             hit_point = ray.get_hitpoint(t)
@@ -85,6 +88,7 @@ class Light():
         self.B = B # Vertice B
         self.C = C # Vertice C
         self.normal = Normal(A, B, C)
+        print('NORMAL' + str (self.normal))
         self.plane_constant = Dot(A, Normal(A, B, C))
         self.color = color
         self.lp = lp
@@ -101,8 +105,9 @@ class Light():
 
             return (hit, distance, hit_point, self.normal)
 
+        ray_dir = Normalize(ray.d)
         # Calculando o ponto que pode está no plano do triangulo
-        t = - (Dot(self.normal, ray.o) + self.plane_constant) / Dot(self.normal, ray.d)
+        t = Dot(self.normal, (self.A - ray.o)) / Dot(ray_dir, self.normal)
         hit_point = ray.get_hitpoint(t)
 
         # Checando se o Ponto está dentro do triangulo

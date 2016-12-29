@@ -18,8 +18,6 @@ prop_types_list = ['eye', 'size', 'ortho', 'background', 'ambient', 'tonemapping
 obj_list = []  # Lista de objetos a serem redenrizados
 prop_dict = {} # dicionario com propriedades da cena
 
-FILENAME = str (prop_types_list[8])
-
 # Lendo os arquivos de configurações e objetos
 f = open(file, 'r')
 
@@ -43,6 +41,7 @@ for line in f:
         print ("Tipo não encontrado")
         print(line_type)
 
+FILENAME = str(prop_dict['output'])
 
 #print("Lista de objetos: ", obj_list)
 #print("Lista de propriedades: ", prop_dict)
@@ -51,7 +50,7 @@ for line in f:
 eye = Vector3D(prop_dict['eye'][0], prop_dict['eye'][1], prop_dict['eye'][2]) #higher z = more narrow view
 focal = Vector3D(0.0, 0.0, 0.0)
 view_distance = 1000
-up = Vector3D(0.0, -1.0, 0.0)
+up = Vector3D(0.0, 1.0, 0.0)
 height = int(prop_dict['size'][0])
 width = int(prop_dict['size'][1])
 spp = int(prop_dict['npaths'])

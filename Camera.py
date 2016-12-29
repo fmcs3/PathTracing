@@ -18,7 +18,7 @@ class Camera:
         self.u = Vector3D(-1.0, 0.0, 0.0)
         self.v = Vector3D(0.0, 1.0, 0.0)
         self.w = Vector3D(0.0, 0.0, -1.0)
-        #####self.compute_uvw()
+        self.compute_uvw()
         # create empty image array
         self.image_array = array.array('B', [0] * (image_width * image_height * 3))
 
