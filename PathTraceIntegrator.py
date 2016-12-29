@@ -1,5 +1,5 @@
 from Algebra import RGBColour
-from Algebra import BLACK, Vector3D
+from Algebra import BLACK, Vector3D, Cross, Normalize, Length
 from objetos import Objeto, Light, ObjectQuadric
 
 
@@ -31,8 +31,24 @@ class PathTraceIntegrator:
                 result = result + (RGBColour(float (obj.ka), float (obj.ka), float (obj.ka)) * float (prop_dict['ambient']))
 
                 # Iluminação difusa
-                #from main import obj_list
-                #result = result + RGBColour(1.0, 1.0, 1.0) + RGBColour(float (obj.kd), float (obj.kd), float (obj.kd))
+                p1 = Vector3D(0.0, -1.0, 0.0)
+                p2 = obj.normal
+
+                if (Length(inter[2])!= 1) :
+                    p1 = Normalize(inter[2])
+                    pass
+
+                if (Length(obj.normal)!= 1) :
+                    p2 = Normalize(obj.normal)
+                    pass
+
+                lv = Cross(p1, p2)
+                inteiro = (1.0 * float (obj.kd))
+                rlvx = lv.x * inteiro
+                rlvy = lv.y * inteiro
+                rlvz = lv.z * inteiro
+
+                result = result + (RGBColour(rlvx, rlvy, rlvz))
                 dist = distance
 
         return result

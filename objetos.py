@@ -88,6 +88,7 @@ class Light():
         self.B = B # Vertice B
         self.C = C # Vertice C
         self.normal = Normal(A, B, C)
+        print('NORMAL' + str (self.normal))
         self.plane_constant = Dot(A, Normal(A, B, C))
         self.color = color
         self.lp = lp
@@ -104,8 +105,9 @@ class Light():
 
             return (hit, distance, hit_point, self.normal)
 
+        ray_dir = Normalize(ray.d)
         # Calculando o ponto que pode está no plano do triangulo
-        t = - (Dot(self.normal, ray.o) + self.plane_constant) / Dot(self.normal, ray.d)
+        t = Dot(self.normal, (self.A - ray.o)) / Dot(ray_dir, self.normal)
         hit_point = ray.get_hitpoint(t)
 
         # Checando se o Ponto está dentro do triangulo
