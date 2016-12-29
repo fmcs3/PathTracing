@@ -43,7 +43,7 @@ for line in f:
         print ("Tipo não encontrado")
         print(line_type)
 
-
+#print(str (obj_list[3][1]))
 #print("Lista de objetos: ", obj_list)
 #print("Lista de propriedades: ", prop_dict)
 

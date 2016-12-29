@@ -22,8 +22,17 @@ class PathTraceIntegrator:
             distance = inter[1]
 
             if hit and distance < dist:
+
+                # Iluminação do objeto
+                result = obj.color
+
+                # Iluminação ambiente
                 from main import prop_dict
-                result = obj.color + RGBColour(float (prop_dict['ambient']), float (prop_dict['ambient']), float (prop_dict['ambient'])) + RGBColour(float (obj.ka), float (obj.ka), float (obj.ka))
+                result = result + (RGBColour(float (obj.ka), float (obj.ka), float (obj.ka)) * float (prop_dict['ambient']))
+
+                # Iluminação difusa
+                #from main import obj_list
+                #result = result + RGBColour(1.0, 1.0, 1.0) + RGBColour(float (obj.kd), float (obj.kd), float (obj.kd))
                 dist = distance
 
         return result
