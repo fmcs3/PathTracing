@@ -28,7 +28,8 @@ class PathTraceIntegrator:
 
                 # Iluminação ambiente
                 from main import prop_dict
-                result = result + (RGBColour(float (obj.ka), float (obj.ka), float (obj.ka)) * float (prop_dict['ambient']))
+                ia = float (prop_dict['ambient']) * float (obj.ka)
+                result = result + (RGBColour(ia, ia, ia))
 
                 # Iluminação difusa
                 p1 = Vector3D(0.0, -1.0, 0.0)
