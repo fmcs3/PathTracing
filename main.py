@@ -18,8 +18,6 @@ prop_types_list = ['eye', 'size', 'ortho', 'background', 'ambient', 'tonemapping
 obj_list = []  # Lista de objetos a serem redenrizados
 prop_dict = {} # dicionario com propriedades da cena
 
-FILENAME = str (prop_types_list[8])
-
 # Lendo os arquivos de configurações e objetos
 f = open(file, 'r')
 
@@ -43,7 +41,8 @@ for line in f:
         print ("Tipo não encontrado")
         print(line_type)
 
-#print(str (obj_list[3][1]))
+FILENAME = str(prop_dict['output'])
+
 #print("Lista de objetos: ", obj_list)
 #print("Lista de propriedades: ", prop_dict)
 
