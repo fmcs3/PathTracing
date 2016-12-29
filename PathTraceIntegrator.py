@@ -1,5 +1,5 @@
 from Algebra import RGBColour
-from Algebra import BLACK, Vector3D, Cross, Normalize, Length
+from Algebra import BLACK, Vector3D, Cross, Normalize, Length, Dot
 from objetos import Objeto, Light, ObjectQuadric
 
 
@@ -42,13 +42,9 @@ class PathTraceIntegrator:
                     p2 = Normalize(obj.normal)
                     pass
 
-                lv = Cross(p1, p2)
-                inteiro = (1.0 * float (obj.kd))
-                rlvx = lv.x * inteiro
-                rlvy = lv.y * inteiro
-                rlvz = lv.z * inteiro
+                lv = 1.0 * float (obj.kd) * Dot(p1, p2)
 
-                result = result + (RGBColour(rlvx, rlvy, rlvz))
+                result = result + (RGBColour(lv, lv, lv))
                 dist = distance
 
         return result
