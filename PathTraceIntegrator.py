@@ -35,8 +35,8 @@ class PathTraceIntegrator:
                 p1 = Vector3D(0.0, -1.0, 0.0)
                 p2 = obj.normal
 
-                if (Length(inter[2])!= 1) :
-                    p1 = Normalize(inter[2])
+                if (Length(p1)!= 1) :
+                    p1 = Normalize(p1)
                     pass
 
                 if (Length(obj.normal)!= 1) :
@@ -46,6 +46,7 @@ class PathTraceIntegrator:
                 lv = 1.0 * float (obj.kd) * Dot(p1, p2)
 
                 result = result + (RGBColour(lv, lv, lv))
+
                 dist = distance
 
         return result
