@@ -1,5 +1,5 @@
 from Algebra import RGBColour
-from Algebra import BLACK
+from Algebra import BLACK, Vector3D
 from objetos import Objeto, Light, ObjectQuadric
 
 
@@ -22,7 +22,8 @@ class PathTraceIntegrator:
             distance = inter[1]
 
             if hit and distance < dist:
-                result = obj.color
+                from main import prop_dict
+                result = obj.color + RGBColour(float (prop_dict['ambient']), float (prop_dict['ambient']), float (prop_dict['ambient'])) + RGBColour(float (obj.ka), float (obj.ka), float (obj.ka))
                 dist = distance
 
         return result
